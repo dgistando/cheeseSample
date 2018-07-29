@@ -1,0 +1,138 @@
+<h1 id="cheeseshopsample"><strong>Cheese Shop Sample</strong></h1>
+
+<p>This is Cheese Shop. This version of the project is a sample to demonstrate my skills in ReactJS and back-end software development. The full project is still in development and has much more cheese and functionality.</p>
+
+<p>The application displays information about many different cheeses using an API hosted within the project. The data comes from a MongoDB database and is served as an API through an express server. There's graphql midlleware to make the API easier to deal with.</p>
+
+<p>Redux is a major part of this application tying all the data together and making it easy to trace errors. The important parts are in <code>cheese_shop/src/actions/</code> and <code>cheese_shop/src/reducers/</code></p>
+
+<hr />
+
+<h2 id="setup"><strong>Setup</strong></h2>
+
+<h3 id="dependencies">Dependencies:</h3>
+
+<ul>
+<li>Latest version of NodeJS</li>
+
+<li>Latest version of MongoDB</li>
+
+<li>Latest version of NPM</li>
+
+<li>A browser</li>
+
+<li>An internet connection</li>
+</ul>
+
+<h3 id="torun">To run</h3>
+
+<ol>
+<li>run 'npm install' command in the <code>root</code> folder and in <code>/cheese_shop/</code> .</li>
+
+<li>run the mongod command to start the mongoDB server </li>
+
+<li>Execute the <code>/cheese/scraper/get_local_cheese.js</code> to add all the data.</li>
+
+<li>Run <code>/cheese/server/GQLserver.js</code> to start the API</li>
+
+<li>From <code>/cheese/cheese_shop/</code> execute <code>npm run start</code> from the command line</li>
+
+<li>Open a browser and navigate to <a href="http://localhost:8080/">localhost:8080/</a></li>
+</ol>
+
+<p>OR</p>
+
+<p>Go to the live version <a href="https://gserver.hopto.org/cheeseSample">here</a>. (This application is hosted on my web server which is reason for the domain name. All data stores are wiped daily.)</p>
+
+<hr />
+
+<h2 id="usecases">Use cases</h2>
+
+<ul>
+<li>View information about various cheeses through a search</li>
+
+<li>Add cheese to a cart and prepare for purchase</li>
+
+<li>Server an api or anyone else to view the same cheese information</li>
+</ul>
+
+<h2 id="wheredidthedatacomefrom">Where did the data come from?</h2>
+
+<ul>
+<li>The data in this sample can be found in <code>/scraper/cheese.json</code> . This sample data has 60 different cheeses in it and lots of information about each.</li>
+
+<li>The original scraper for the full project is also in <code>/scraper/</code>. It uses <a href="https://github.com/cheeriojs/cheerio">Cherrio</a>, streams, and the <a href="https://github.com/mongodb/node-mongodb-native">MongoDB Client</a> to gather the information and pictures.</li>
+
+<li>The prices are randomly generated number based around normal cheese prices.</li>
+</ul>
+
+<h2 id="theapi">The API</h2>
+
+<p>The API uses <a href="https://github.com/Automattic/mongoose">mongoose</a> to connect mongoDB and <a href="https://github.com/graphql/graphql-js">GraphQL</a> . It is served from the <a href="http://localhost:4000/graphql">localhost:4000/graphql</a> but in the official application the data comes from a phsycial server unattached from the host. GraphiQL is enabled here if you want to test some queries.</p>
+
+<h3 id="thebasicaltypesare"><strong>The basical types are :</strong></h3>
+
+<pre><code class="javascript language-javascript">CheeseType{
+    Name 
+    Link 
+    Img 
+    Made 
+    Country_of_origin 
+    Family 
+    Type 
+    Fat_content 
+    Calcium_content 
+    Texture 
+    Rind 
+    Colour 
+    Flavour 
+    Aroma 
+    Vegetarian 
+    Producers 
+    Synonyms 
+    Alternative_spelling 
+    Fat_dry 
+    Price
+}
+
+cartType{
+    Name
+    Quantity
+    Price
+    Img
+}
+</code></pre>
+
+<h3 id="thebasicalqueriesare"><strong>The basical queries are :</strong></h3>
+
+<p>Query/Select</p>
+
+<pre><code class="javascript language-javascript">getAllCheese{
+    CheeseType
+}
+
+Search(search:String){
+    CheeseType
+}
+
+GetCart{
+    CartType
+}
+</code></pre>
+
+<p>There are other included in <code>/server/GQLServer</code> but these are the ones used in this Sample</p>
+
+<p>Mutation/Modifying</p>
+
+<pre><code class="javascript language-javascript">addItem(Name:String Quantity:Number Price:Number Img:String){
+ cartType   
+}
+
+updateItem(Name:String newQuantity:Number){
+ cartType   
+}
+
+removeItem(Name: String){
+ cartType   
+}
+</code></pre>
